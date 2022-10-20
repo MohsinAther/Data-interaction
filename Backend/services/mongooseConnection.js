@@ -5,7 +5,7 @@ const mongoose = require('mongoose'),
 exports.makeConnection = async () => {
 
     let db = "DataIntreaction"
-    if (NODE.ENV === 'production') {
+    if (process.env.NODE_ENV === 'production') {
         let [err, con] = await utils.resolver(mongoose.connect('mongodb://localhost:27017/' + db, {
             useNewUrlParser: true, useFindAndModify: false, "auth": {
                 "authSource": "admin"
