@@ -2,8 +2,8 @@ const express = require('express'),
   router = express.Router(),
   wordcloud = require('../controllers/wordcloud'),
   yahoo = require('../controllers/yahoo-ticker'),
-  CompaniesController = require('../controllers/companies');
-NewsController = require('../controllers/news'),
+  CompaniesController = require('../controllers/companies'),
+  NewsController = require('../controllers/news'),
   seedController = require('../services/seed');
 
 /* GET home page. */
