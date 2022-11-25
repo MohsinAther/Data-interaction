@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
+var cors = require('cors')
 
 
 const mongooseConection = require('./services/mongooseConnection');
@@ -18,7 +19,7 @@ mongooseConection.makeConnection();
 
 // app.use('/users', usersRouter);
 var app = express();
-
+app.use(cors())
 
 
 // view engine setup

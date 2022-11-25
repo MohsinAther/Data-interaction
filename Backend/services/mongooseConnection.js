@@ -21,7 +21,7 @@ exports.makeConnection = async () => {
 
     else {
 
-        let [err, con] = await utils.resolver(mongoose.connect('mongodb://localhost:27017/' + db, { useNewUrlParser: true }));
+        let [err, con] = await utils.resolver(mongoose.connect('mongodb://localhost:27017/' + db));
         if (!err)
             return console.log("can not connect to db")
         console.log("Connected to DB")
