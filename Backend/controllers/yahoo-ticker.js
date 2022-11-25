@@ -20,8 +20,8 @@ exports.historicData = async (req, res) => {
 
     let [err, data] = await utils.resolver(yahooFinance.historical({
       symbol: req.params.ticker,
-      from: '2021-03-31',
-      to: '2022-03-30',
+      from: '2022-01-01',
+      to: '2022-11-25',
       // modules: ['summaryDetail', 'price'],
       period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
     }))

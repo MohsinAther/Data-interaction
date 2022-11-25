@@ -8,8 +8,10 @@ var mongoose = require('mongoose'),
 
 
 var CompanySchema = new Schema({
-  ticker: String,
-  company: String
+  ticker: {type: String, index: true },
+  company:{type: String , index: true }
 });
+
+// schema.index({ ticker: 'text', company:'text'})
 
 exports.Company = mongoose.model('Company', CompanySchema);
