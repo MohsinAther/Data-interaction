@@ -48,7 +48,7 @@ exports.generate_word_cloud = async (req, res) => {
 
                 "group": "true",
                 "group.field": "simhash",
-                "group.limit":-1,
+                "group.limit": -1,
                 "fl": "id,simhash,snippet,url,timestamp,published,blogdesc,blogurl,sentiment,summary,pkg,geo_city,geo_region,geo_country,geo_continent",
 
                 "rows": -1,
@@ -62,7 +62,7 @@ exports.generate_word_cloud = async (req, res) => {
 
         for (const [key, value] of Object.entries(sim)) {
             console.log(key, value);
-          }
+        }
         let ids = [];
 
         sim = Object.keys(sim)
@@ -79,9 +79,9 @@ exports.generate_word_cloud = async (req, res) => {
         let [err2, response2] = await utils.resolver(axios.post('http://158.69.25.177:8983/solr/gnowit/select', articles_query))
 
         console.log("*****")
-        response2.data.grouped.simhash.groups.forEach(element => {
-            console.log(element.groupValue, element.doclist.numFound)
-        });
+        // response2.data.grouped.simhash.groups.forEach(element => {
+        //     console.log(element.groupValue, element.doclist.numFound)
+        // });
 
         if (err)
             return res.status(406).send({ message: "Can not get data from SOLR" });
@@ -103,7 +103,7 @@ exports.generate_word_cloud = async (req, res) => {
 
 
 
-        res.json({ wc: obj, sentiment_graph: sentiment_graph })
+        res.json({ wc: obj, sentiment_graph: sentiment_graph, simhash: response2.data.grouped.simhash.groups })
 
 
 
