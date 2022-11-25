@@ -27,6 +27,7 @@ const SamplePage = () => {
   const [dataSource, setdataSource] = useState([]);
   const [resultData, setresultData] = useState([]);
   const [load, setload] = useState(false);
+  let [newsArticles, setNewsArticles] = useState([]);
 
   const loadLineChart = (radialData) => {
     console.log(radialData.length)
@@ -736,7 +737,8 @@ const SamplePage = () => {
       // loadStockChart()
 
       WC = queryRes.data.wc
-
+      setNewsArticles(queryRes.data.simhash)
+      debugger
       if (root6) {
         root6.dispose()
         root6 = am5.Root.new("chartLine");
@@ -857,12 +859,22 @@ const SamplePage = () => {
               It contains data of last 30 days, click on any province to further analyse that city with updated word cloud and sentiment lines charts. Bottom scrollbar can be used to jump to some date.
               "><QuestionCircleOutlined className="clickable" />  </Tooltip>
             </span>
-            <Space direction="vertical" style={{ width: '100%' }}>
-              <Alert type="success" >hello</Alert>
-              <Alert message="Info Text" type="info" />
-              <Alert message="Warning Text" type="warning" />
-              <Alert message="Error Text" type="error" />
-            </Space>
+            {/* <Space direction="vertical" style={{ width: '100%' }}> */}
+
+              {
+                newsArticles.length > 0 ? newsArticles.map((data1,index)=>{
+                  return <div className={ "alert  " + (data1.doclist.docs[0].sentiment[0] ==="pos" ? 'alert-success' : data1.doclist.docs[0].sentiment[0] ==="neg" ? 'alert-danger':' alert-warning') }>
+                  <div className="white"><a href={data1.doclist.docs[0].blogurl[0]} target="_black">{data1.doclist.docs[0].snippet[0]}</a></div><br />
+                  <div> {data1.doclist.docs.length} Similar articles</div>
+                  <div> {data1.doclist.docs[0].timestamp[0]}</div>
+                  <div> {data1.doclist.docs[0].blogdesc[0]}</div>
+                  <div> {data1.doclist.docs[0].summary[0]}</div>
+
+                  </div>
+                })  : null
+
+                
+            }
           </div>
 
         </div>
