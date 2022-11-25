@@ -15,7 +15,7 @@ exports.makeConnection = async () => {
         }))
         if (!err)
             return console.log("can not connect to db")
-        console.log("Connected to DB")
+        console.log("Connected to DB, prod")
         return con
     }
 
