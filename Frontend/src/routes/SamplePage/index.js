@@ -12,9 +12,10 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import * as am5wc from "@amcharts/amcharts5/wc";
 import * as am5stock from "@amcharts/amcharts5/stock";
 
-import { Tooltip, Button, AutoComplete, Alert, Space, message } from 'antd';
+import { Tooltip, Button, AutoComplete, Alert, Space, message, Spin } from 'antd';
 // import 'antd/dist/antd.css';
-const server_url = "http://localhost:3000"
+// const server_url = "http://localhost:3000"
+const server_url = "http://51.222.106.58:3000";
 
 
 
@@ -729,10 +730,11 @@ const SamplePage = () => {
   const WCAPI = async (name, ticker) => {
     console.log(name, ticker);
 
-
+    setload(true)
     let queryRes = await axios.post(`${server_url}/api/wordcloud`, { query: `'${name}' OR '${ticker}'` })
-
+    setload(false)
     if (queryRes) {
+
 
       // loadStockChart()
 
@@ -793,7 +795,7 @@ const SamplePage = () => {
 
   const handleSearch = async (value) => {
 
-    let res = await axios.get(`http://localhost:3000/api/lookup/${value}`);
+    let res = await axios.get(`${server_url}/api/lookup/${value}`);
     setresultData(res.data)
 
     let serachRes = []
@@ -832,8 +834,12 @@ const SamplePage = () => {
               onSelect={(e) => onSelect(e)}
               onSearch={(e) => handleSearch(e)}
               placeholder="Search any stock ticker or company"
+              className="mr-2"
             />
+            {load ? <span className="ml-3"><Spin className="ml-3" /> </span> : <></>}
+
           </div>
+
         </div>
       </div>
 
@@ -853,7 +859,7 @@ const SamplePage = () => {
 
 
         <div className="col-md-6  pr-0 pl-0" >
-          <div className="whitebox bg-light ">
+          <div className="whitebox bg-light " style={{ width: "100%", height: "650px", overflowY: 'auto' }}>
             <span className="title align-baseline">Latest News  &nbsp;
               <Tooltip placement="right" title="This chart shows all provinces and its cities, Province color represents the sentiment of that province and inner radial chart shows stacked sentiment of each city. 
               It contains data of last 30 days, click on any province to further analyse that city with updated word cloud and sentiment lines charts. Bottom scrollbar can be used to jump to some date.
@@ -861,19 +867,19 @@ const SamplePage = () => {
             </span>
             {/* <Space direction="vertical" style={{ width: '100%' }}> */}
 
-              {
-                newsArticles.length > 0 ? newsArticles.map((data1,index)=>{
-                  return <div className={ "alert  " + (data1.doclist.docs[0].sentiment[0] ==="pos" ? 'alert-success' : data1.doclist.docs[0].sentiment[0] ==="neg" ? 'alert-danger':' alert-warning') }>
+            {
+              newsArticles.length > 0 ? newsArticles.map((data1, index) => {
+                return <div className={"alert  " + (data1.doclist.docs[0].sentiment[0] === "pos" ? 'alert-success' : data1.doclist.docs[0].sentiment[0] === "neg" ? 'alert-danger' : ' alert-warning')}>
                   <div className="white"><a href={data1.doclist.docs[0].blogurl[0]} target="_black">{data1.doclist.docs[0].snippet[0]}</a></div><br />
                   <div> {data1.doclist.docs.length} Similar articles</div>
                   <div> {data1.doclist.docs[0].timestamp[0]}</div>
                   <div> {data1.doclist.docs[0].blogdesc[0]}</div>
                   <div> {data1.doclist.docs[0].summary[0]}</div>
 
-                  </div>
-                })  : null
+                </div>
+              }) : null
 
-                
+
             }
           </div>
 

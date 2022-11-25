@@ -50,7 +50,7 @@ const Topbar = () => {
 
   return (
     <Header className="bg-light">
-      <img className="logo" src="https://www.seekpng.com/png/full/841-8412607_universal-music-group-logo-logo-carleton-university.png"></img>
+      {/* <img className="logo" src="https://www.seekpng.com/png/full/841-8412607_universal-music-group-logo-logo-carleton-university.png"></img> */}
       {/* <AutoComplete
         dataSource={dataSource}
         style={{ width: 200 }}
