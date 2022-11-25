@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@amcharts/amcharts3-react": "^3.1.0",
-    "@amcharts/amcharts5": "^5.1.8",
+    "@amcharts/amcharts5": "^5.2.35",
     "@ant-design/compatible": "^1.0.8",
-    "@ant-design/icons": "^4.3.0",
+    "@ant-design/icons": "^4.8.0",
     "@babel/compat-data": "^7.12.7",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",

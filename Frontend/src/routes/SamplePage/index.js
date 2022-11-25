@@ -10,7 +10,7 @@ import axios from 'axios';
 import moment from "moment";
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import * as am5wc from "@amcharts/amcharts5/wc";
-import * as am5stock from "@amcharts/amcharts5/stock";
+// import * as am5stock from "@amcharts/amcharts5/stock";
 
 import { Tooltip, Button, AutoComplete, Alert, Space } from 'antd';
 // import 'antd/dist/antd.css';
@@ -263,14 +263,14 @@ const SamplePage = () => {
   }
 
   const loadStockChart = ()=>{
-    stock_root = am5.Root.new("chartdivstock");
-    stock_root.setThemes([
-      am5themes_Animated.new(stock_root),
-      Dark.new(stock_root)
-    ]);
+    // stock_root = am5.Root.new("chartdivstock");
+    // stock_root.setThemes([
+    //   am5themes_Animated.new(stock_root),
+    //   Dark.new(stock_root)
+    // ]);
 
-    let stockChart = stock_root.container.children.push(am5stock.StockChart.new(stock_root, {
-    }));
+    // let stockChart = stock_root.container.children.push(am5stock.StockChart.new(stock_root, {
+    // }));
     
 
     

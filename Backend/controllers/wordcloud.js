@@ -48,6 +48,7 @@ exports.generate_word_cloud = async (req, res) => {
 
                 "group": "true",
                 "group.field": "simhash",
+                "group.limit":-1,
                 "fl": "id,simhash,snippet,url,timestamp,published,blogdesc,blogurl,sentiment,summary,pkg,geo_city,geo_region,geo_country,geo_continent",
 
                 "rows": -1,
