@@ -7,8 +7,9 @@ exports.makeConnection = async () => {
     let db = "DataIntreaction"
     if (process.env.NODE_ENV === 'production') {
         console.log("in prod")
+        mongoose.Promise = global.Promise
 
-        let [err, con] = await utils.resolver(mongoose.createConnection('mongodb://localhost:27017/' + db, {
+        let [err, con] = await utils.resolver(mongoose.connect('mongodb://localhost:27017/' + db, {
             useMongoClient: true,"auth": {
                 "authSource": "admin"
             },
