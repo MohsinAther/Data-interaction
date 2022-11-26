@@ -9,7 +9,7 @@ exports.makeConnection = async () => {
         console.log("in prod")
 
         let [err, con] = await utils.resolver(mongoose.createConnection('mongodb://localhost:27017/' + db, {
-            "auth": {
+            useMongoClient: true,"auth": {
                 "authSource": "admin"
             },
             "user": "admin",
