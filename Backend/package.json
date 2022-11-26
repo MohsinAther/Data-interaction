@@ -15,7 +15,7 @@
     "http-errors": "~1.6.3",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "mongoose": "^6.7.1",
+    "mongoose": "^4.13.17",
     "morgan": "~1.9.1",
     "request": "^2.88.2",
     "yahoo-finance": "^0.3.7"
