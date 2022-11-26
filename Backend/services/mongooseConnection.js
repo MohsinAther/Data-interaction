@@ -8,7 +8,7 @@ exports.makeConnection = async () => {
     if (process.env.NODE_ENV === 'production') {
         console.log("in prod")
 
-        let [err, con] = await utils.resolver(mongoose.openUri('mongodb://localhost:27017/' + db, {
+        let [err, con] = await utils.resolver(mongoose.createConnection('mongodb://localhost:27017/' + db, {
             useNewUrlParser: true, "auth": {
                 "authSource": "admin"
             },
