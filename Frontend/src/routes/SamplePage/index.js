@@ -17,12 +17,14 @@ import { Tooltip, Button, AutoComplete, Alert, Space, message, Spin } from 'antd
 // const server_url = "http://localhost:3000"
 const server_url = "http://51.222.106.58:3000";
 
+var root6, wordcloud
+
 
 
 const SamplePage = () => {
-
+  // alert("here")
   var WC;
-  var series4, wordcloud, root6, stock_root;
+  var series4, stock_root;
   let companyName, companyTicker;
   var query;
   const [dataSource, setdataSource] = useState([]);
@@ -762,8 +764,10 @@ const SamplePage = () => {
       }
 
 
-      loadWordcloud();
-      loadLineChart(queryRes.data.sentiment_graph)
+      if (WC.length)
+        loadWordcloud();
+      if (queryRes.data.sentiment_graph.length)
+        loadLineChart(queryRes.data.sentiment_graph)
 
     }
   }
@@ -827,16 +831,31 @@ const SamplePage = () => {
 
       <div className="row px-0 mx-0 mb-2" >
         <div className="col-md-12">
-          <div className="mt-3" style={{ width: '100%', textAlign: "center" }}>
-            <AutoComplete
-              options={dataSource}
-              style={{ width: 400 }}
-              onSelect={(e) => onSelect(e)}
-              onSearch={(e) => handleSearch(e)}
-              placeholder="Search any stock ticker or company"
-              className="mr-2"
-            />
-            {load ? <span className="ml-3"><Spin className="ml-3" /> </span> : <></>}
+          <div className="whitebox px-0 mt-3 bg-light">
+
+            <div className="d-flex px-4" >
+
+
+              <div className="pl-2 flex-grow-1  text-center">
+                <AutoComplete
+                  options={dataSource}
+                  style={{ width: 400 }}
+                  onSelect={(e) => onSelect(e)}
+                  onSearch={(e) => handleSearch(e)}
+                  placeholder="Search any stock ticker or company to generate graphs"
+                  className="pl-2 w-75"
+                />
+                {load ? <span className="ml-3"><Spin className="ml-3" /> </span> : <></>}
+              </div>
+              <div className="mr-auto p-2">
+                <span class="badge bg-secondary bg-pos c-dark">Positive</span> &nbsp;
+                <span class="badge bg-secondary bg-neg c-dark">Negative</span>&nbsp;
+                <span class="badge bg-secondary bg-neut c-dark">Neutral</span>
+              </div>
+            </div>
+
+
+
 
           </div>
 

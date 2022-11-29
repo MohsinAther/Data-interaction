@@ -49,24 +49,21 @@ const Topbar = () => {
 
 
   return (
-    <Header className="bg-light">
-      {/* <img className="logo" src="https://www.seekpng.com/png/full/841-8412607_universal-music-group-logo-logo-carleton-university.png"></img> */}
-      {/* <AutoComplete
-        dataSource={dataSource}
-        style={{ width: 200 }}
-        onSelect={onSelect}
-        onSearch={()=>handleSearch()}
-        placeholder="input here"
-      /> */}
-      {/* this is top bar */}
+    <></>
+    // <Header className="bg-light">
+    //   {/* <img className="logo" src="https://www.seekpng.com/png/full/841-8412607_universal-music-group-logo-logo-carleton-university.png"></img> */}
+    //   {/* <AutoComplete
+    //     dataSource={dataSource}
+    //     style={{ width: 200 }}
+    //     onSelect={onSelect}
+    //     onSearch={()=>handleSearch()}
+    //     placeholder="input here"
+    //   /> */}
+    //   {/* this is top bar */}
 
-      <div className="d-inline">
-        <span class="badge bg-secondary bg-pos c-dark">Positive</span> &nbsp;
-        <span class="badge bg-secondary bg-neg c-dark">Negative</span>&nbsp;
-        <span class="badge bg-secondary bg-neut c-dark">Neutral</span>
-      </div>
+   
 
-    </Header>
+    // </Header>
   );
 };
 
