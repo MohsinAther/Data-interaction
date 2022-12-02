@@ -839,7 +839,7 @@ const SamplePage = () => {
         <div className="col-md-12">
           <div className="whitebox mt-0 bg-light">
             <span className="title align-baseline px-3">Stocks &nbsp;
-              <Tooltip placement="right" title="Shows stock prices of 1 year with advance tools to get useful insights"><QuestionCircleOutlined className="clickable" />  </Tooltip>
+              {/* <Tooltip placement="right" title="Shows stock prices of 1 year with advance tools to get useful insights"><QuestionCircleOutlined className="clickable" />  </Tooltip> */}
             </span>
             <div id="chartcontrols" ></div>
             <div id="chartdivstock" ></div>
@@ -890,7 +890,7 @@ const SamplePage = () => {
 
             <div className="whitebox px-0 mt-3 bg-light">
               <span className="title align-baseline px-3">Sentiment Per day  &nbsp;
-                <Tooltip placement="right" title="Shows 30 days sentiment per day of any province if selected (whole Canada by default)"><QuestionCircleOutlined className="clickable" />  </Tooltip>
+                {/* <Tooltip placement="right" title="Shows 30 days sentiment per day of any province if selected (whole Canada by default)"><QuestionCircleOutlined className="clickable" />  </Tooltip> */}
               </span>
 
 
@@ -910,10 +910,10 @@ const SamplePage = () => {
 
           <div className="col-md-6  pr-0 pl-0" >
             <div className="whitebox bg-light " style={{ width: "100%", height: "650px", overflowY: 'auto' }}>
-              <span className="title align-baseline mb-3">Latest News  &nbsp;
-                <Tooltip placement="right" title="This chart shows all provinces and its cities, Province color represents the sentiment of that province and inner radial chart shows stacked sentiment of each city. 
+              <span className="title align-baseline mb-3">Important  News  &nbsp;
+                {/* <Tooltip placement="right" title="This chart shows all provinces and its cities, Province color represents the sentiment of that province and inner radial chart shows stacked sentiment of each city. 
               It contains data of last 30 days, click on any province to further analyse that city with updated word cloud and sentiment lines charts. Bottom scrollbar can be used to jump to some date.
-              "><QuestionCircleOutlined className="clickable" />  </Tooltip>
+              "><QuestionCircleOutlined className="clickable" />  </Tooltip> */}
               </span>
               {/* <Space direction="vertical" style={{ width: '100%' }}> */}
 
@@ -942,7 +942,7 @@ const SamplePage = () => {
           <div className="col-md-6 clearfix pl-0 pr-2 ">
             <div className="whitebox bg-light ">
               <span className="title align-baseline">Word Cloud   &nbsp;
-                <Tooltip placement="right" title="Word Cloud shows top 30 frequent topics discussed in selected state (by default shows overall). Color represents the sentiment of that word"><QuestionCircleOutlined className="clickable" />  </Tooltip>
+                {/* <Tooltip placement="right" title="Word Cloud shows top 30 frequent topics discussed in selected state (by default shows overall). Color represents the sentiment of that word"><QuestionCircleOutlined className="clickable" />  </Tooltip> */}
               </span>
               {load ?
                 <div className="p-2" ><Skeleton active={true} rows={15} style={{ width: "100% !important", height: "600px !important" }} /></div> : noData ?
