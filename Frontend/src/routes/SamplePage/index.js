@@ -8,11 +8,12 @@ import * as am5radar from "@amcharts/amcharts5/radar";
 import * as am5hierarchy from "@amcharts/amcharts5/hierarchy";
 import axios from 'axios';
 import moment from "moment";
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, DotChartOutlined } from '@ant-design/icons';
 import * as am5wc from "@amcharts/amcharts5/wc";
 import * as am5stock from "@amcharts/amcharts5/stock";
 
-import { Tooltip, Button, AutoComplete, Alert, Space, message, Spin } from 'antd';
+
+import { Tooltip, Button, AutoComplete, Alert, Space, message, Spin, Skeleton, Empty } from 'antd';
 // import 'antd/dist/antd.css';
 // const server_url = "http://localhost:3000"
 const server_url = "http://51.222.106.58:3000";
@@ -30,6 +31,8 @@ const SamplePage = () => {
   const [dataSource, setdataSource] = useState([]);
   const [resultData, setresultData] = useState([]);
   const [load, setload] = useState(false);
+  const [noData, setnoData] = useState(false);
+  const [showsearch, setshowsearch] = useState(false);
   let [newsArticles, setNewsArticles] = useState([]);
 
   const loadLineChart = (radialData) => {
@@ -452,6 +455,7 @@ const SamplePage = () => {
     async function loadData(ticker, series, granularity) {
       // debugger
 
+
       axios.get(`${server_url}/api/historic/${ticker}`).then(data => {
         data = data.data
 
@@ -533,9 +537,9 @@ const SamplePage = () => {
       searchCallback: function (query) {
         let compared = stockChart.getPrivate("comparedSeries", []);
         let main = stockChart.get("stockSeries");
-        if (compared.length > 4) {
+        if (compared.length > 7) {
           return [{
-            label: "A maximum of 5 comparisons added",
+            label: "A maximum of 8 comparisons added",
             subLabel: "Remove some to add new ones",
             id: "",
             className: "am5stock-list-info"
@@ -667,11 +671,21 @@ const SamplePage = () => {
           stockChart: stockChart,
           legend: valueLegend
         }),
-        am5stock.DateRangeSelector.new(root, {
-          stockChart: stockChart
-        }),
+        // am5stock.DateRangeSelector.new(root, {
+        //   stockChart: stockChart
+        // }),
         am5stock.PeriodSelector.new(root, {
-          stockChart: stockChart
+          stockChart: stockChart,
+          periods: [
+            { timeUnit: "day", count: 5, name: "5D" },
+            { timeUnit: "day", count: 10, name: "10D" },
+            { timeUnit: "day", count: 15, name: "15D" },
+            { timeUnit: "month", count: 1, name: "1M" },
+            { timeUnit: "month", count: 3, name: "3M" },
+            { timeUnit: "month", count: 6, name: "6M" },
+            { timeUnit: "year", count: 1, name: "1Y" },
+            { timeUnit: "max", name: "Max" },
+          ]
         }),
         seriesSwitcher,
         am5stock.DrawingControl.new(root, {
@@ -735,6 +749,10 @@ const SamplePage = () => {
     setload(true)
     let queryRes = await axios.post(`${server_url}/api/wordcloud`, { query: `'${name}' OR '${ticker}'` })
     setload(false)
+    debugger
+    if (!queryRes || !queryRes.data || !queryRes.data.wc || !queryRes.data.sentiment_graph || !queryRes.data.sentiment_graph.length || !queryRes.data.simhash)
+      return setnoData(true)
+
     if (queryRes) {
 
 
@@ -742,7 +760,7 @@ const SamplePage = () => {
 
       WC = queryRes.data.wc
       setNewsArticles(queryRes.data.simhash)
-      debugger
+
       if (root6) {
         root6.dispose()
         root6 = am5.Root.new("chartLine");
@@ -762,7 +780,7 @@ const SamplePage = () => {
         wordcloud = am5.Root.new("wordcloud");
 
       }
-
+      setnoData(false)
 
       if (WC.length)
         loadWordcloud();
@@ -775,6 +793,7 @@ const SamplePage = () => {
 
   const onSelect = (value) => {
 
+    setshowsearch(true)
     let searchId;
     dataSource.find((data, index) => {
       if (data.value === value) {
@@ -820,7 +839,7 @@ const SamplePage = () => {
         <div className="col-md-12">
           <div className="whitebox mt-0 bg-light">
             <span className="title align-baseline px-3">Stocks &nbsp;
-              <Tooltip placement="right" title="Represents topics by provinces and cities, Size represents unique topics, Each node at city level shows topic and its frequency"><QuestionCircleOutlined className="clickable" />  </Tooltip>
+              <Tooltip placement="right" title="Shows stock prices of 1 year with advance tools to get useful insights"><QuestionCircleOutlined className="clickable" />  </Tooltip>
             </span>
             <div id="chartcontrols" ></div>
             <div id="chartdivstock" ></div>
@@ -862,60 +881,79 @@ const SamplePage = () => {
         </div>
       </div>
 
-      <div className="row px-0 mx-0 mb-2" >
-        <div className="col-md-12">
-          <div className="whitebox px-0 mt-3 bg-light">
-            <span className="title align-baseline px-3">Sentiment Per day  &nbsp;
-              <Tooltip placement="right" title="Shows 30 days sentiment per day of any province if selected (whole Canada by default)"><QuestionCircleOutlined className="clickable" />  </Tooltip>
-            </span>
+      {showsearch ? <>
 
-            <div id="chartLine" style={{ width: "100%", height: "200px" }} ></div>
+        <div className="row px-0 mx-0 mb-2" >
+          <div className="col-md-12">
+
+
+
+            <div className="whitebox px-0 mt-3 bg-light">
+              <span className="title align-baseline px-3">Sentiment Per day  &nbsp;
+                <Tooltip placement="right" title="Shows 30 days sentiment per day of any province if selected (whole Canada by default)"><QuestionCircleOutlined className="clickable" />  </Tooltip>
+              </span>
+
+
+              {load ?
+                <div className="p-2" style={{zIndex:99999}}  ><Skeleton active={true} rows={15} style={{ width: "100% !important", height: "300px !important",zIndex:99999 }} /></div> : noData ?
+                  <Empty width="100%" height="300px" /> :
+                  <div id="chartLine" style={{ width: "100%", height: "300px" }} ></div>
+              }
+            </div>
+
           </div>
         </div>
-      </div>
-
-      <div className="row px-0 mx-0" >
 
 
-        <div className="col-md-6  pr-0 pl-0" >
-          <div className="whitebox bg-light " style={{ width: "100%", height: "650px", overflowY: 'auto' }}>
-            <span className="title align-baseline">Latest News  &nbsp;
-              <Tooltip placement="right" title="This chart shows all provinces and its cities, Province color represents the sentiment of that province and inner radial chart shows stacked sentiment of each city. 
+        <div className="row px-0 mx-0" >
+
+
+          <div className="col-md-6  pr-0 pl-0" >
+            <div className="whitebox bg-light " style={{ width: "100%", height: "650px", overflowY: 'auto' }}>
+              <span className="title align-baseline mb-3">Latest News  &nbsp;
+                <Tooltip placement="right" title="This chart shows all provinces and its cities, Province color represents the sentiment of that province and inner radial chart shows stacked sentiment of each city. 
               It contains data of last 30 days, click on any province to further analyse that city with updated word cloud and sentiment lines charts. Bottom scrollbar can be used to jump to some date.
               "><QuestionCircleOutlined className="clickable" />  </Tooltip>
-            </span>
-            {/* <Space direction="vertical" style={{ width: '100%' }}> */}
+              </span>
+              {/* <Space direction="vertical" style={{ width: '100%' }}> */}
 
-            {
-              newsArticles.length > 0 ? newsArticles.map((data1, index) => {
-                return <div className={"alert  " + (data1.doclist.docs[0].sentiment[0] === "pos" ? 'alert-success' : data1.doclist.docs[0].sentiment[0] === "neg" ? 'alert-danger' : ' alert-warning')}>
-                  <div className="white"><a href={data1.doclist.docs[0].blogurl[0]} target="_black">{data1.doclist.docs[0].snippet[0]}</a></div><br />
-                  <div> {data1.doclist.docs.length} Similar articles</div>
-                  <div> {data1.doclist.docs[0].timestamp[0]}</div>
-                  <div> {data1.doclist.docs[0].blogdesc[0]}</div>
-                  <div> {data1.doclist.docs[0].summary[0]}</div>
+              {load ?
+                <div className="p-2" ><Skeleton active={true} rows={15} style={{ width: "100% !important", height: "300px !important" }} /></div> : noData ?
+                  <Empty width="100%" height="300px" /> :
 
-                </div>
-              }) : null
+                  newsArticles.length > 0 ? newsArticles.map((data1, index) => {
+                    return <div className={"alert  " + (data1.doclist.docs[0].sentiment && data1.doclist.docs[0].sentiment[0] === "pos" ? 'alert-success' : data1.doclist.docs[0]?.sentiment && data1.doclist.docs[0].sentiment[0] === "neg" ? 'alert-danger' : ' alert-warning')}>
+                      <div className="white mb-2"><a href={data1.doclist.docs[0].blogurl[0]} target="_black">{data1.doclist.docs[0].snippet[0]}</a></div>
+                      <div> {data1.doclist.docs.length} Similar articles</div>
+                      <div className="mb-2"> {moment(data1.doclist.docs[0].timestamp[0]).format('DD-MM-YYYY' +  ' at ' + 'hh:mm a')} by  {data1.doclist.docs[0].blogdesc[0]}</div>
+                     
+                      <div> {data1.doclist.docs[0].summary[0]}</div>
+
+                    </div>
+                  }) : null
 
 
-            }
+              }
+            </div>
+
           </div>
 
-        </div>
 
+          <div className="col-md-6 clearfix pl-0 pr-2 ">
+            <div className="whitebox bg-light ">
+              <span className="title align-baseline">Word Cloud   &nbsp;
+                <Tooltip placement="right" title="Word Cloud shows top 30 frequent topics discussed in selected state (by default shows overall). Color represents the sentiment of that word"><QuestionCircleOutlined className="clickable" />  </Tooltip>
+              </span>
+              {load ?
+                <div className="p-2" ><Skeleton active={true} rows={15} style={{ width: "100% !important", height: "600px !important" }} /></div> : noData ?
+                  <Empty width="100%" height="600px" /> :
+                  <div id="wordcloud" style={{ width: "100%", height: "600px" }}></div>
+              }
 
-        <div className="col-md-6 clearfix pl-0 pr-2 ">
-          <div className="whitebox bg-light ">
-            <span className="title align-baseline">Word Cloud   &nbsp;
-              <Tooltip placement="right" title="Word Cloud shows top 30 frequent topics discussed in selected state (by default shows overall). Color represents the sentiment of that word"><QuestionCircleOutlined className="clickable" />  </Tooltip>
-            </span>
-
-            <div id="wordcloud" style={{ width: "100%", height: "600px" }}></div>
+            </div>
           </div>
         </div>
-      </div>
-
+      </> : <></>}
 
 
 

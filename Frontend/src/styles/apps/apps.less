@@ -332,18 +332,18 @@
   height: calc(100vh ~"-" 201px) !important;
 
   .framed-layout & {
-    height: calc(100vh~"-"201px ~"-" 2 * @framed-layout-base) !important;
+    height: calc(100vh~"-" 201px ~"-" 2 * @framed-layout-base) !important;
   }
 
   @media screen and (max-width: @screen-md-max) {
-    height: calc(100vh ~"-" @layout-header-height) !important;
+    height: calc(100vh ~"-"@layout-header-height) !important;
 
     .framed-layout & {
-      height: calc(100vh ~"-" @layout-header-height) !important;
+      height: calc(100vh ~"-"@layout-header-height) !important;
     }
   }
 
-  & > div:first-child {
+  &>div:first-child {
     overflow-y: scroll !important;
   }
 }
@@ -352,7 +352,7 @@
   height: calc(100vh ~"-" 266px) !important;
 
   .framed-layout & {
-    height: calc(100vh~"-"266px ~"-" 2 * @framed-layout-base) !important;
+    height: calc(100vh~"-" 266px ~"-" 2 * @framed-layout-base) !important;
   }
 
   @media screen and (max-width: @screen-md-max) {
@@ -367,7 +367,7 @@
     height: calc(100vh ~"-" 216px) !important;
   }
 
-  & > div:first-child {
+  &>div:first-child {
     overflow-y: scroll !important;
   }
 }
@@ -376,7 +376,7 @@
   height: calc(100vh ~"-" 319px) !important;
 
   .framed-layout & {
-    height: calc(100vh~"-"319px ~"-" 2 * @framed-layout-base) !important;
+    height: calc(100vh~"-" 319px ~"-" 2 * @framed-layout-base) !important;
   }
 
   @media screen and (max-width: @screen-md-max) {
@@ -391,7 +391,7 @@
     height: calc(100vh ~"-" 270px) !important;
   }
 
-  & > div:first-child {
+  &>div:first-child {
     overflow-y: scroll !important;
   }
 }
@@ -410,7 +410,7 @@
     height: calc(100vh ~"-" 266px) !important;
 
     .framed-layout & {
-      height: calc(100vh~"-"266px ~"-" 2 * @framed-layout-base) !important;
+      height: calc(100vh~"-" 266px ~"-" 2 * @framed-layout-base) !important;
     }
 
     @media screen and (max-width: @screen-md-max) {
@@ -430,7 +430,7 @@
     height: calc(100vh ~"-" 122px) !important;
 
     .framed-layout & {
-      height: calc(100vh~"-"122px ~"-" 2 * @framed-layout-base) !important;
+      height: calc(100vh~"-" 122px ~"-" 2 * @framed-layout-base) !important;
     }
 
     @media screen and (max-width: @screen-md-max) {
@@ -445,7 +445,7 @@
   }
 }
 
-.@{class-prefix}-loader-position{
+.@{class-prefix}-loader-position {
   position: absolute;
   left: 0;
   right: 0;
@@ -468,67 +468,118 @@
 }
 
 .@{class-prefix}-task {
+
   &-des,
   &-input {
     padding-left: 0;
   }
 }
 
+input,
+select {
+  color: black;
+}
+
 #chartcontrols {
-  height: auto;
+  min-height: auto;
   padding: 5px 5px 0 16px;
   max-width: 100%;
 }
 
 #chartdivstock {
   width: 100%;
-  height: 600px;
+  min-height: 600px;
   max-width: 100%;
 }
 
-.whitebox{
+.alert-success {
+  background-color: rgba(140, 202, 53, 0.85) !important;
+  color: black;
+}
+
+.alert-warning {
+  background-color: rgba(204, 204, 1, 0.85) !important;
+  color: black;
+}
+
+.alert {
+  // opacity: 90%;
+  font-size: 18px;
+
+}
+
+.alert a{
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.alert-danger {
+  background-color: rgba(202, 53, 60, 0.85) !important;
+  color: white;
+}
+.alert-danger a {
+  color: rgb(232, 249, 44);
+
+}
+
+.alert-warning a {
+  color: rgb(139, 2, 9)
+}
+
+.alert-success a {
+  color: rgb(3, 11, 238);
+  
+}
+
+
+.whitebox {
   background-color: white;
   padding: 15px;
   border-radius: 15px;
 }
 
-#root{
- background-color:#232A30;
-}
-.bg-light{
-  background-color:  #38424B !important;
-}
-.gx-main-content-wrapper{
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-.bg-dark{
+#root {
   background-color: #232A30;
 }
 
-.logo{
+.bg-light {
+  background-color: #38424B !important;
+}
+
+.gx-main-content-wrapper {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.bg-dark {
+  background-color: #232A30;
+}
+
+.logo {
   height: 40px;
 }
 
-.bg-pos{
+.bg-pos {
   background-color: #8DCB35 !important;
 }
 
-.bg-neg{
+.bg-neg {
   background-color: #CA353C !important;
 }
 
-.bg-neut{
+.bg-neut {
   background-color: #CCCC01 !important;
 }
 
 .c-dark {
- color: #232A30 !important ;
+  color: #232A30 !important;
 }
-.title{
+
+.title {
   color: #C5C7C9;
   font-size: 16px;
 }
-.clickable{
+
+.clickable {
   cursor: pointer;
 }
