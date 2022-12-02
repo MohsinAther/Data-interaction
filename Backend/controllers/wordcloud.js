@@ -103,7 +103,7 @@ exports.generate_word_cloud = async (req, res) => {
 
 
 
-        res.json({ wc: obj, sentiment_graph: sentiment_graph, simhash: response2.data.grouped.simhash.groups })
+        res.json({ wc: obj, sentiment_graph: sentiment_graph, simhash: response2.data.grouped.simhash.groups.reverse() })
 
 
 
